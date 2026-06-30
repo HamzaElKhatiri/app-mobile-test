@@ -22,12 +22,12 @@ class KeypadButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = switch (type) {
-      KeypadButtonType.number => [const Color(0xFF19191E), const Color(0xFF111116)],
-      KeypadButtonType.operator => [AppTheme.red, const Color(0xFF8D0007)],
-      KeypadButtonType.action => [const Color(0xFF2A2A31), const Color(0xFF18181E)],
-      KeypadButtonType.premium => [AppTheme.neon, const Color(0xFF6EA000)],
+      KeypadButtonType.number => [const Color(0xFF10254A), const Color(0xFF071225)],
+      KeypadButtonType.operator => [AppTheme.electricBlue, AppTheme.deepBlue],
+      KeypadButtonType.action => [const Color(0xFF1B3D72), const Color(0xFF0A1A35)],
+      KeypadButtonType.premium => [AppTheme.cyan, AppTheme.electricBlue],
     };
-    final textColor = type == KeypadButtonType.premium ? Colors.black : AppTheme.white;
+    final textColor = type == KeypadButtonType.premium ? const Color(0xFF00101A) : AppTheme.white;
     return Expanded(
       flex: flex,
       child: Padding(
@@ -44,12 +44,19 @@ class KeypadButton extends StatelessWidget {
                 gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: colors),
                 boxShadow: [
                   BoxShadow(
-                    color: colors.first.withOpacity(0.22),
-                    blurRadius: 20,
-                    offset: const Offset(0, 10),
+                    color: colors.first.withOpacity(0.34),
+                    blurRadius: 24,
+                    spreadRadius: -4,
+                    offset: const Offset(0, 12),
                   ),
+                  if (type == KeypadButtonType.operator || type == KeypadButtonType.premium)
+                    BoxShadow(
+                      color: AppTheme.cyan.withOpacity(0.22),
+                      blurRadius: 34,
+                      spreadRadius: -8,
+                    ),
                 ],
-                border: Border.all(color: Colors.white.withOpacity(0.08)),
+                border: Border.all(color: AppTheme.cyan.withOpacity(type == KeypadButtonType.number ? 0.10 : 0.28)),
               ),
               child: Center(
                 child: Text(
@@ -57,7 +64,8 @@ class KeypadButton extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     color: textColor,
                     fontSize: label.length > 3 ? 15 : 22,
-                    fontWeight: FontWeight.w800,
+                    fontWeight: FontWeight.w900,
+                    letterSpacing: -0.2,
                   ),
                 ),
               ),

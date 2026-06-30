@@ -34,7 +34,7 @@ class _InsightsScreenState extends State<InsightsScreen> {
             future: _future,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator(color: AppTheme.red));
+                return const Center(child: CircularProgressIndicator(color: AppTheme.cyan));
               }
               final items = snapshot.data ?? [];
               final total = items.length;
@@ -53,11 +53,15 @@ class _InsightsScreenState extends State<InsightsScreen> {
                       crossAxisSpacing: 14,
                       mainAxisSpacing: 14,
                       childAspectRatio: Responsive.isMobile(context) ? 2.2 : 1.15,
-                      children: [
-                        _MetricCard(label: 'Calculs sauvés', value: '$total', icon: Icons.save_rounded, accent: AppTheme.red),
-                        _MetricCard(label: 'Calculs avancés', value: '$scientific', icon: Icons.science_rounded, accent: AppTheme.neon),
-                        _MetricCard(label: 'Expression max', value: '$longest', icon: Icons.straighten_rounded, accent: AppTheme.gold),
-                      ],
+                      children: const [
+                        _MetricCard(label: 'Calculs sauvés', value: null, icon: Icons.save_rounded, accent: AppTheme.electricBlue),
+                        _MetricCard(label: 'Calculs avancés', value: null, icon: Icons.science_rounded, accent: AppTheme.cyan),
+                        _MetricCard(label: 'Expression max', value: null, icon: Icons.straighten_rounded, accent: AppTheme.violet),
+                      ].asMap().entries.map((entry) {
+                        final values = ['$total', '$scientific', '$longest'];
+                        final card = entry.value;
+                        return _MetricCard(label: card.label, value: values[entry.key], icon: card.icon, accent: card.accent);
+                      }).toList(),
                     ),
                   ),
                 ],
@@ -74,7 +78,7 @@ class _MetricCard extends StatelessWidget {
   const _MetricCard({required this.label, required this.value, required this.icon, required this.accent});
 
   final String label;
-  final String value;
+  final String? value;
   final IconData icon;
   final Color accent;
 
@@ -88,13 +92,13 @@ class _MetricCard extends StatelessWidget {
           Container(
             width: 48,
             height: 48,
-            decoration: BoxDecoration(color: accent.withOpacity(0.16), borderRadius: BorderRadius.circular(18)),
+            decoration: BoxDecoration(color: accent.withOpacity(0.16), borderRadius: BorderRadius.circular(18), border: Border.all(color: accent.withOpacity(0.18))),
             child: Icon(icon, color: accent),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(value, style: GoogleFonts.poppins(fontSize: 40, fontWeight: FontWeight.w900, color: accent)),
+              Text(value ?? '0', style: GoogleFonts.poppins(fontSize: 40, fontWeight: FontWeight.w900, color: accent, shadows: [Shadow(color: accent.withOpacity(0.38), blurRadius: 16)])),
               Text(label, style: const TextStyle(color: AppTheme.muted, fontWeight: FontWeight.w700)),
             ],
           ),

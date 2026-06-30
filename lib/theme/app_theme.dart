@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  static const Color black = Color(0xFF050505);
-  static const Color nearBlack = Color(0xFF0A0A0D);
-  static const Color graphite = Color(0xFF141419);
-  static const Color card = Color(0xFF1C1C22);
-  static const Color red = Color(0xFFE50914);
-  static const Color neon = Color(0xFFB6FF00);
-  static const Color white = Color(0xFFF7F7F7);
-  static const Color muted = Color(0xFF9B9BA3);
-  static const Color gold = Color(0xFFFFD166);
+  static const Color black = Color(0xFF02040A);
+  static const Color nearBlack = Color(0xFF060A14);
+  static const Color graphite = Color(0xFF0D1424);
+  static const Color card = Color(0xFF111A2F);
+  static const Color electricBlue = Color(0xFF147CFF);
+  static const Color deepBlue = Color(0xFF063BFF);
+  static const Color cyan = Color(0xFF00E5FF);
+  static const Color violet = Color(0xFF7C3CFF);
+  static const Color white = Color(0xFFF4F8FF);
+  static const Color muted = Color(0xFF8FA4C8);
+  static const Color gold = Color(0xFF79F2FF);
+  static const Color neon = cyan;
+  static const Color red = electricBlue;
 
   static ThemeData get darkTheme {
     final baseTextTheme = GoogleFonts.poppinsTextTheme();
@@ -19,10 +23,10 @@ class AppTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: black,
       colorScheme: const ColorScheme.dark(
-        primary: red,
-        secondary: neon,
+        primary: electricBlue,
+        secondary: cyan,
         surface: graphite,
-        error: Color(0xFFFF4D6D),
+        error: Color(0xFFFF4D8D),
       ),
       textTheme: baseTextTheme.apply(
         bodyColor: white,
@@ -39,12 +43,12 @@ class AppTheme {
         ),
       ),
       navigationBarTheme: NavigationBarThemeData(
-        backgroundColor: const Color(0xDD111116),
-        indicatorColor: red.withOpacity(0.18),
+        backgroundColor: const Color(0xE6081020),
+        indicatorColor: electricBlue.withOpacity(0.22),
         labelTextStyle: WidgetStateProperty.resolveWith(
           (states) => GoogleFonts.poppins(
             fontSize: 12,
-            fontWeight: states.contains(WidgetState.selected) ? FontWeight.w700 : FontWeight.w500,
+            fontWeight: states.contains(WidgetState.selected) ? FontWeight.w800 : FontWeight.w500,
             color: states.contains(WidgetState.selected) ? white : muted,
           ),
         ),
@@ -56,7 +60,7 @@ class AppTheme {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-          backgroundColor: red,
+          backgroundColor: electricBlue,
           foregroundColor: white,
           elevation: 0,
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 16),

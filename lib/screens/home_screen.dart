@@ -123,9 +123,10 @@ class _HomeScreenState extends State<HomeScreen> {
             width: double.infinity,
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.38),
+              color: Colors.black.withOpacity(0.34),
               borderRadius: BorderRadius.circular(26),
-              border: Border.all(color: Colors.white.withOpacity(0.08)),
+              border: Border.all(color: AppTheme.cyan.withOpacity(0.18)),
+              boxShadow: [BoxShadow(color: AppTheme.electricBlue.withOpacity(0.16), blurRadius: 32, spreadRadius: -12)],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -149,6 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontSize: _error == null ? 42 : 18,
                       fontWeight: FontWeight.w900,
                       letterSpacing: -1.4,
+                      shadows: _error == null ? [Shadow(color: AppTheme.cyan.withOpacity(0.42), blurRadius: 18)] : null,
                     ),
                   ),
                 ),
@@ -226,21 +228,25 @@ class _HeroPanel extends StatelessWidget {
             children: [
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                decoration: BoxDecoration(color: AppTheme.red, borderRadius: BorderRadius.circular(999)),
-                child: const Text('CALC NOIR', style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1.2)),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(colors: [AppTheme.electricBlue, AppTheme.cyan]),
+                  borderRadius: BorderRadius.circular(999),
+                  boxShadow: [BoxShadow(color: AppTheme.cyan.withOpacity(0.28), blurRadius: 24)],
+                ),
+                child: const Text('CALC FUTUR', style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 1.2, color: Color(0xFF00101A))),
               ),
               const Spacer(),
-              const Icon(Icons.auto_awesome_rounded, color: AppTheme.neon),
+              const Icon(Icons.auto_awesome_rounded, color: AppTheme.cyan),
             ],
           ),
           const SizedBox(height: 24),
           Text(
-            'Des calculs nets. Un résultat instantané.',
+            'Interface bleue. Calculs instantanés. Vibe futuriste.',
             style: GoogleFonts.poppins(fontSize: 34, height: 1.02, fontWeight: FontWeight.w900, letterSpacing: -1.4),
           ),
           const SizedBox(height: 14),
           const Text(
-            'Une calculatrice responsive au style noir premium, pensée pour mobile, tablette et web.',
+            'Une calculatrice sombre et lumineuse pensée pour mobile, tablette et web : touches bleues électriques, halo cyan, historique local et moteur scientifique intégré.',
             style: TextStyle(color: AppTheme.muted, height: 1.55, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 22),
@@ -248,33 +254,33 @@ class _HeroPanel extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.34),
+              color: Colors.black.withOpacity(0.30),
               borderRadius: BorderRadius.circular(26),
-              border: Border.all(color: AppTheme.neon.withOpacity(0.22)),
+              border: Border.all(color: AppTheme.cyan.withOpacity(0.22)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text('Résultat live', style: TextStyle(color: AppTheme.muted, fontWeight: FontWeight.w800)),
-                const SizedBox(height: 6),
+                const SizedBox(height: 8),
                 Text(
                   result,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: GoogleFonts.poppins(fontSize: 44, fontWeight: FontWeight.w900, color: AppTheme.neon, letterSpacing: -1.8),
+                  style: GoogleFonts.poppins(fontSize: 42, fontWeight: FontWeight.w900, color: AppTheme.cyan, letterSpacing: -1.6, shadows: [Shadow(color: AppTheme.cyan.withOpacity(0.45), blurRadius: 18)]),
                 ),
               ],
             ),
           ),
           const SizedBox(height: 18),
-          Wrap(
+          const Wrap(
             spacing: 10,
             runSpacing: 10,
-            children: const [
-              _HeroTag(label: 'Local'),
-              _HeroTag(label: 'Scientifique'),
-              _HeroTag(label: 'Historique'),
-              _HeroTag(label: 'Flutter Web'),
+            children: [
+              _TechChip(label: 'Blue neon'),
+              _TechChip(label: 'Flutter Web'),
+              _TechChip(label: 'Historique local'),
+              _TechChip(label: 'Scientifique'),
             ],
           ),
         ],
@@ -283,8 +289,8 @@ class _HeroPanel extends StatelessWidget {
   }
 }
 
-class _HeroTag extends StatelessWidget {
-  const _HeroTag({required this.label});
+class _TechChip extends StatelessWidget {
+  const _TechChip({required this.label});
 
   final String label;
 
@@ -293,11 +299,11 @@ class _HeroTag extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.08),
+        color: AppTheme.electricBlue.withOpacity(0.14),
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        border: Border.all(color: AppTheme.cyan.withOpacity(0.18)),
       ),
-      child: Text(label, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 12)),
+      child: Text(label, style: const TextStyle(fontWeight: FontWeight.w800, color: AppTheme.white)),
     );
   }
 }

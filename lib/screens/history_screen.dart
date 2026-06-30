@@ -60,7 +60,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   future: _future,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator(color: AppTheme.red));
+                      return const Center(child: CircularProgressIndicator(color: AppTheme.cyan));
                     }
                     if (snapshot.hasError) {
                       return const _StateCard(icon: Icons.warning_rounded, title: 'Erreur', message: 'Impossible de charger l’historique.');
@@ -101,7 +101,7 @@ class _StateCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: AppTheme.red, size: 48),
+            Icon(icon, color: AppTheme.cyan, size: 48),
             const SizedBox(height: 14),
             Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900)),
             const SizedBox(height: 8),

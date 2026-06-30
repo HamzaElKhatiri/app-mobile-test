@@ -19,38 +19,38 @@ class AboutScreen extends StatelessWidget {
             children: [
               Text('Studio', style: GoogleFonts.poppins(fontSize: 34, fontWeight: FontWeight.w900, letterSpacing: -1.2)),
               const SizedBox(height: 8),
-              const Text('Calc Noir combine une expérience tactile mobile et un rendu web responsive.', style: TextStyle(color: AppTheme.muted)),
+              const Text('Calc Noir combine une expérience tactile mobile et un rendu web responsive avec une esthétique futuriste bleue.', style: TextStyle(color: AppTheme.muted)),
               const SizedBox(height: 22),
               GlassCard(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Design premium', style: GoogleFonts.poppins(fontSize: 26, fontWeight: FontWeight.w900)),
+                    Text('Design futuriste bleu', style: GoogleFonts.poppins(fontSize: 26, fontWeight: FontWeight.w900)),
                     const SizedBox(height: 12),
                     const Text(
-                      'Noir profond façon Netflix, précision minimaliste façon Apple, énergie sportive façon Nike. L’app reste rapide, lisible et utilisable à une main.',
+                      'Noir profond, boutons bleus électriques, contours cyan et halos lumineux. L’app reste rapide, lisible et utilisable à une main sur mobile comme sur le web.',
                       style: TextStyle(color: AppTheme.muted, height: 1.55),
                     ),
                     const SizedBox(height: 18),
-                    Wrap(
+                    const Wrap(
                       spacing: 10,
                       runSpacing: 10,
-                      children: const [
+                      children: [
                         _Chip(label: 'Mobile-first'),
                         _Chip(label: 'Flutter Web'),
                         _Chip(label: 'Historique local'),
                         _Chip(label: 'Scientifique'),
-                        _Chip(label: 'Dark UI'),
+                        _Chip(label: 'Blue Neon'),
                       ],
                     ),
                   ],
                 ),
               ),
               const SizedBox(height: 14),
-              GlassCard(
+              const GlassCard(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     _Feature(icon: Icons.speed_rounded, title: 'Résultat instantané', text: 'Prévisualisation automatique pendant la saisie.'),
                     _Feature(icon: Icons.lock_rounded, title: 'Local only', text: 'Aucune API, aucune base distante, aucune donnée envoyée.'),
                     _Feature(icon: Icons.devices_rounded, title: 'Responsive', text: 'Adapté aux téléphones, tablettes, desktops et navigateurs web.'),
@@ -74,7 +74,7 @@ class _Chip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(color: AppTheme.red.withOpacity(0.14), borderRadius: BorderRadius.circular(999)),
+      decoration: BoxDecoration(color: AppTheme.electricBlue.withOpacity(0.14), borderRadius: BorderRadius.circular(999), border: Border.all(color: AppTheme.cyan.withOpacity(0.18))),
       child: Text(label, style: const TextStyle(fontWeight: FontWeight.w800)),
     );
   }
@@ -94,7 +94,7 @@ class _Feature extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, color: AppTheme.neon),
+          Icon(icon, color: AppTheme.cyan),
           const SizedBox(width: 12),
           Expanded(
             child: Column(

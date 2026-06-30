@@ -1,6 +1,6 @@
 # Calc Noir
 
-Application Flutter mobile et web pour calculs rapides avec résultats instantanés, historique local et design premium sombre.
+Application Flutter mobile et web pour calculs rapides avec résultats instantanés, historique local et design futuriste bleu.
 
 ## Fonctionnalités
 
@@ -10,6 +10,7 @@ Application Flutter mobile et web pour calculs rapides avec résultats instantan
 - Historique local persistant via SharedPreferences
 - Écran statistiques
 - UI responsive mobile, tablette et web
+- Boutons bleus électriques et ambiance futuriste cyan
 - Preview statique disponible dans `public/preview.html`
 
 ## Lancement
@@ -28,7 +29,7 @@ flutter build web --release --base-href "/"
 ## Structure
 
 - `lib/main.dart` : entrée Flutter et routing
-- `lib/theme` : thème premium sombre
+- `lib/theme` : thème futuriste sombre
 - `lib/services` : moteur de calcul et stockage local
 - `lib/screens` : écrans principaux
 - `lib/widgets` : composants réutilisables

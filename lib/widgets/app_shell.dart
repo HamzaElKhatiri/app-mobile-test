@@ -30,11 +30,11 @@ class _AppShellState extends State<AppShell> {
               children: [
                 if (isDesktop)
                   NavigationRail(
-                    backgroundColor: Colors.black.withOpacity(0.20),
+                    backgroundColor: Colors.black.withOpacity(0.18),
                     selectedIndex: _index,
                     onDestinationSelected: (value) => setState(() => _index = value),
                     labelType: NavigationRailLabelType.all,
-                    selectedIconTheme: const IconThemeData(color: AppTheme.red),
+                    selectedIconTheme: const IconThemeData(color: AppTheme.cyan),
                     unselectedIconTheme: const IconThemeData(color: AppTheme.muted),
                     selectedLabelTextStyle: const TextStyle(color: AppTheme.white, fontWeight: FontWeight.w800),
                     unselectedLabelTextStyle: const TextStyle(color: AppTheme.muted),
@@ -77,15 +77,20 @@ class _AmbientBackground extends StatelessWidget {
         color: AppTheme.black,
         gradient: RadialGradient(
           center: Alignment.topRight,
-          radius: 1.2,
-          colors: [Color(0x552A0004), AppTheme.black],
+          radius: 1.25,
+          colors: [Color(0x55386DFF), AppTheme.black],
         ),
       ),
       child: Stack(
         children: [
-          Positioned(top: -90, right: -80, child: _Glow(color: AppTheme.red.withOpacity(0.36), size: 240)),
-          Positioned(bottom: 120, left: -120, child: _Glow(color: AppTheme.neon.withOpacity(0.12), size: 260)),
-          Positioned(bottom: -130, right: 40, child: _Glow(color: Colors.white.withOpacity(0.08), size: 210)),
+          Positioned(top: -90, right: -80, child: _Glow(color: AppTheme.electricBlue.withOpacity(0.42), size: 260)),
+          Positioned(bottom: 120, left: -120, child: _Glow(color: AppTheme.cyan.withOpacity(0.18), size: 280)),
+          Positioned(bottom: -130, right: 40, child: _Glow(color: AppTheme.violet.withOpacity(0.16), size: 230)),
+          Positioned.fill(
+            child: IgnorePointer(
+              child: CustomPaint(painter: _GridPainter()),
+            ),
+          ),
         ],
       ),
     );
@@ -106,8 +111,27 @@ class _Glow extends StatelessWidget {
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: color,
-        boxShadow: [BoxShadow(color: color, blurRadius: 110, spreadRadius: 48)],
+        boxShadow: [BoxShadow(color: color, blurRadius: 120, spreadRadius: 52)],
       ),
     );
   }
+}
+
+class _GridPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = AppTheme.cyan.withOpacity(0.035)
+      ..strokeWidth = 1;
+    const gap = 46.0;
+    for (double x = 0; x < size.width; x += gap) {
+      canvas.drawLine(Offset(x, 0), Offset(x + size.width * 0.10, size.height), paint);
+    }
+    for (double y = 0; y < size.height; y += gap) {
+      canvas.drawLine(Offset(0, y), Offset(size.width, y + size.height * 0.04), paint);
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }

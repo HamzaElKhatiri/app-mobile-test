@@ -26,10 +26,11 @@ class ResultTile extends StatelessWidget {
               width: 44,
               height: 44,
               decoration: BoxDecoration(
-                color: AppTheme.red.withOpacity(0.14),
+                color: AppTheme.electricBlue.withOpacity(0.16),
                 borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppTheme.cyan.withOpacity(0.18)),
               ),
-              child: const Icon(Icons.functions_rounded, color: AppTheme.red),
+              child: const Icon(Icons.functions_rounded, color: AppTheme.cyan),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -57,7 +58,7 @@ class ResultTile extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.right,
-                style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: AppTheme.neon),
+                style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: AppTheme.cyan),
               ),
             ),
           ],
