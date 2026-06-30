@@ -33,9 +33,12 @@ class _InsightsScreenState extends State<InsightsScreen> {
           child: FutureBuilder<List<CalculationResult>>(
             future: _future,
             builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator(color: AppTheme.red));
+              }
               final items = snapshot.data ?? [];
               final total = items.length;
-              final scientific = items.where((e) => RegExp('sin|cos|sqrt|log|π|\\^').hasMatch(e.expression)).length;
+              final scientific = items.where((e) => RegExp(r'sin|cos|sqrt|log|π|\^').hasMatch(e.expression)).length;
               final longest = items.fold<int>(0, (max, item) => item.expression.length > max ? item.expression.length : max);
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

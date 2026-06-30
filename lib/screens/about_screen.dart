@@ -67,6 +67,7 @@ class AboutScreen extends StatelessWidget {
 
 class _Chip extends StatelessWidget {
   const _Chip({required this.label});
+
   final String label;
 
   @override
@@ -81,6 +82,7 @@ class _Chip extends StatelessWidget {
 
 class _Feature extends StatelessWidget {
   const _Feature({required this.icon, required this.title, required this.text});
+
   final IconData icon;
   final String title;
   final String text;

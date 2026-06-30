@@ -13,7 +13,7 @@ class ResultTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formatter = DateFormat('dd MMM • HH:mm', 'fr_FR');
+    final formatter = DateFormat('dd/MM • HH:mm');
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: GlassCard(
@@ -51,9 +51,14 @@ class ResultTile extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            Text(
-              item.result,
-              style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: AppTheme.neon),
+            Flexible(
+              child: Text(
+                item.result,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.right,
+                style: const TextStyle(fontWeight: FontWeight.w900, fontSize: 18, color: AppTheme.neon),
+              ),
             ),
           ],
         ),

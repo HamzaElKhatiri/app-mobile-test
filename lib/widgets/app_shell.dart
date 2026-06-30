@@ -94,6 +94,7 @@ class _AmbientBackground extends StatelessWidget {
 
 class _Glow extends StatelessWidget {
   const _Glow({required this.color, required this.size});
+
   final Color color;
   final double size;
 

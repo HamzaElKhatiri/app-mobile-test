@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _calculate() async {
-    if (_expression.trim().isEmpty) return;
+    if (_expression.trim().isEmpty || _saving) return;
     setState(() {
       _saving = true;
       _error = null;
@@ -68,26 +68,29 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       final value = CalculatorEngine.evaluateToString(_expression);
       await _store.add(CalculationResult(expression: _expression, result: value, createdAt: DateTime.now()));
+      if (!mounted) return;
       setState(() {
         _result = value;
         _expression = value;
       });
     } on FormatException catch (error) {
+      if (!mounted) return;
       setState(() => _error = error.message);
     } catch (_) {
+      if (!mounted) return;
       setState(() => _error = 'Calcul impossible');
     } finally {
-      setState(() => _saving = false);
+      if (mounted) setState(() => _saving = false);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final isWide = MediaQuery.sizeOf(context).width >= 900;
-    final page = Center(
+    return Center(
       child: ConstrainedBox(
         constraints: BoxConstraints(maxWidth: Responsive.maxContentWidth(context)),
-        child: Padding(
+        child: SingleChildScrollView(
           padding: Responsive.pagePadding(context),
           child: isWide
               ? Row(
@@ -95,23 +98,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Expanded(child: _HeroPanel(result: _result)),
                     const SizedBox(width: 22),
-                    Expanded(child: _CalculatorPanel()),
+                    Expanded(child: _calculatorPanel()),
                   ],
                 )
               : Column(
                   children: [
                     _HeroPanel(result: _result),
                     const SizedBox(height: 16),
-                    _CalculatorPanel(),
+                    _calculatorPanel(),
                   ],
                 ),
         ),
       ),
     );
-    return page;
   }
 
-  Widget _CalculatorPanel() {
+  Widget _calculatorPanel() {
     return GlassCard(
       padding: const EdgeInsets.all(14),
       child: Column(
@@ -140,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   duration: const Duration(milliseconds: 220),
                   child: Text(
                     _error ?? _result,
-                    key: ValueKey('${_error ?? _result}'),
+                    key: ValueKey(_error ?? _result),
                     textAlign: TextAlign.right,
                     style: GoogleFonts.poppins(
                       color: _error == null ? AppTheme.white : Theme.of(context).colorScheme.error,
@@ -187,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
           _row([
             _key('0', () => _append('0'), KeypadButtonType.number, 2),
             _key('.', () => _append('.')),
-            _key('=', _saving ? () {} : _calculate, KeypadButtonType.premium),
+            _key(_saving ? '...' : '=', _calculate, KeypadButtonType.premium),
           ]),
           _row([
             _key('(', () => _append('('), KeypadButtonType.action),
@@ -236,31 +238,66 @@ class _HeroPanel extends StatelessWidget {
             'Des calculs nets. Un résultat instantané.',
             style: GoogleFonts.poppins(fontSize: 34, height: 1.02, fontWeight: FontWeight.w900, letterSpacing: -1.4),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 14),
           const Text(
-            'Interface sombre, boutons tactiles, historique automatique et moteur scientifique léger pour mobile, tablette et web.',
-            style: TextStyle(color: AppTheme.muted, height: 1.5, fontSize: 15),
+            'Une calculatrice responsive au style noir premium, pensée pour mobile, tablette et web.',
+            style: TextStyle(color: AppTheme.muted, height: 1.55, fontWeight: FontWeight.w500),
           ),
           const SizedBox(height: 22),
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.42),
-              borderRadius: BorderRadius.circular(24),
+              color: Colors.black.withOpacity(0.34),
+              borderRadius: BorderRadius.circular(26),
               border: Border.all(color: AppTheme.neon.withOpacity(0.22)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Résultat live', style: TextStyle(color: AppTheme.muted, fontWeight: FontWeight.w700)),
+                const Text('Résultat live', style: TextStyle(color: AppTheme.muted, fontWeight: FontWeight.w800)),
                 const SizedBox(height: 6),
-                Text(result, style: GoogleFonts.poppins(fontSize: 34, fontWeight: FontWeight.w900, color: AppTheme.neon)),
+                Text(
+                  result,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: GoogleFonts.poppins(fontSize: 44, fontWeight: FontWeight.w900, color: AppTheme.neon, letterSpacing: -1.8),
+                ),
               ],
             ),
           ),
+          const SizedBox(height: 18),
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: const [
+              _HeroTag(label: 'Local'),
+              _HeroTag(label: 'Scientifique'),
+              _HeroTag(label: 'Historique'),
+              _HeroTag(label: 'Flutter Web'),
+            ],
+          ),
         ],
       ),
+    );
+  }
+}
+
+class _HeroTag extends StatelessWidget {
+  const _HeroTag({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(999),
+        border: Border.all(color: Colors.white.withOpacity(0.08)),
+      ),
+      child: Text(label, style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 12)),
     );
   }
 }

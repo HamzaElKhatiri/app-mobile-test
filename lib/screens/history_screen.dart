@@ -31,7 +31,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   Future<void> _clear() async {
     await _store.clear();
-    _reload();
+    if (mounted) _reload();
   }
 
   @override
@@ -63,7 +63,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       return const Center(child: CircularProgressIndicator(color: AppTheme.red));
                     }
                     if (snapshot.hasError) {
-                      return _StateCard(icon: Icons.warning_rounded, title: 'Erreur', message: 'Impossible de charger l’historique.');
+                      return const _StateCard(icon: Icons.warning_rounded, title: 'Erreur', message: 'Impossible de charger l’historique.');
                     }
                     final items = snapshot.data ?? [];
                     if (items.isEmpty) {

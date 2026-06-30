@@ -22,7 +22,7 @@ flutter run
 ## Build web
 
 ```bash
-flutter build web
+flutter build web --release --base-href "/"
 ```
 
 ## Structure
